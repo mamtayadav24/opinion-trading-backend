@@ -45,6 +45,13 @@ app.use("/api/admin", authenticateUser, adminRoutes);
 setupSockets(io);
 setInterval(fetchLiveData, 30000);
 
+app.use((req, res) => {
+    res.json({
+      error: "404",
+      message: "Route you were looking for was not found",
+    });
+  });
+
 server.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
 });
@@ -62,3 +69,5 @@ function setupLogging() {
         logger.add(new winston.transports.Console({ format: winston.format.simple() }));
     }
 }
+
+
